@@ -8,23 +8,15 @@ def wtnick():
 
     iname=os.popen("cat /proc/net/dev")
     p=iname.read()
-    list=open("nicname.txt","w")
-    list.write(p)
-    list.close()
-    list=open("nicname.txt","r")
-    np=0
-    global niclist
-    niclist=[]
-    print("-network interface names select:\n ")
-    for i in list.readlines():
+    netdev = open('netdev.hx','w')
+    netdev.write(p)
+    netdev.close()
+    netdev = open('netdev.hx','r')
+    ifacelist =open('iface.hx','w')
+    for i in netdev.readlines():
         x=re.search("(\w+):",i)
         if(x):
-            print(" +%s select %s"%(x.group(1),np))
-            niclist.insert(np,x.group(1))
-            np+=1
-    list.close()
-    global nic
-    nic=int(raw_input("\n>>> "))
-
-
+            ifacelist.write(x.group(1)+'\n')
+    ifacelist.close()
+    netdev.close()
 wtnick()
