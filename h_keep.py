@@ -1,22 +1,15 @@
 #!/usr/bin/python
 
-import os
-import re
+import urllib, re
 
-#select interface
-def wtnick():
+#get external ip
+def get_ip():
+    data = re.search('([0-9.]*)', urllib.urlopen("http://ip.tyrox.co").read()).group()
+    ext_ip = open('ext.info','w')
+    ext_ip.write(data)
+    ext_ip.close()
 
-    iname=os.popen("cat /proc/net/dev")
-    p=iname.read()
-    netdev = open('netdev.hx','w')
-    netdev.write(p)
-    netdev.close()
-    netdev = open('netdev.hx','r')
-    ifacelist =open('iface.hx','w')
-    for i in netdev.readlines():
-        x=re.search("(\w+):",i)
-        if(x):
-            ifacelist.write(x.group(1)+'\n')
-    ifacelist.close()
-    netdev.close()
-wtnick()
+
+get_ip()
+
+
