@@ -12,6 +12,14 @@ def update():
 def setup():
 	os.system('wget https://bootstrap.pypa.io/get-pip.py')
 	os.system('python get-pip.py')
+	os.system('pip install -r requirements.txt')
+	os.system('cp vurt_client.py /usr/bin')
+	os.system('sudo echo -e  >> /etc/crontab "*/5 * * * * /usr/bin/python /usr/bin/vurt_client.py update"')
 
 if(sys.argv[1]=='setup'):
 	setup()
+
+if(sys.argv[1]=='update'):
+	update()
+else:
+	print 'usage: setup | update'
