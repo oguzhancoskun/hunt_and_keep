@@ -12,7 +12,8 @@ def update():
 def setup():
 	os.system('wget https://bootstrap.pypa.io/get-pip.py')
 	os.system('python get-pip.py')
-	os.system('pip install -r requirements.txt')
+	os.system('pip install urllib')
+	os.system('pip install urllib2')
 	os.system('cp vurt_client.py /usr/bin')
 	os.system('sudo echo -e  >> /etc/crontab "*/5 * * * * /usr/bin/python /usr/bin/vurt_client.py update"')
 
