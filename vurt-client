@@ -1,0 +1,53 @@
+#!/usr/bin/python
+
+import urllib,urllib2,sys,os
+#from datetime import timedelta
+import hashlib,ssl
+
+global password
+
+def update(uname,pword):
+#        uptime_string = ''
+        url='https://vurt.zproc.org/wthigot.php'
+#        with open('/proc/uptime', 'r') as f:
+#                uptime_seconds = float(f.readline().split()[0])
+#                uptime_string = str(timedelta(seconds = uptime_seconds))
+        data = {'username':uname,'password': md5(pword)}
+        data = urllib.urlencode(data)
+        request = urllib2.Request(url + '?' + data)
+        gcontext = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
+        response = urllib2.urlopen(request,context=gcontext)
+        print response.read()
+
+def setup():
+        #os.system('pip install requirements.txt')	
+        os.system('cp vurt-client /usr/bin')
+	os.system('sudo echo -e  >> /etc/crontab "*/5 * * * * /usr/bin/python /usr/bin/vurt-client update"')
+
+def md5(value):
+    m = hashlib.md5()
+    m.update(value)
+    return m.hexdigest()
+
+def help(command):
+    print command+' is incorrect'
+    print '''
+a Dynamic DNS Client
+
+usage:
+ setup - setup all dependencies
+ update - update your private IP'''
+
+if len(sys.argv) > 1:
+    if(sys.argv[1]=='setup'):
+        setup()
+
+    if(sys.argv[1]=='update'):
+        if sys.argv[3] and sys.argv[4] is not None:   
+            update(sys.argv[2],sys.argv[3])
+        else:
+            help('')
+    else:
+        help(sys.argv[1])
+else:
+	help('') 
