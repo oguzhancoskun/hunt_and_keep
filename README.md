@@ -2,8 +2,6 @@
 
 a Dynamic DNS
 
-### Version
-v
 ### Installation
 
 
