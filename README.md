@@ -8,7 +8,6 @@ a Dynamic DNS
 
 
 ```sh
-$ git clone  https://github.com/oguzhancoskun/hunt_and_keep.git
-$ cd hunt_and_keep
-$ python vurt-client setup
+$ git clone  https://github.com/oguzhancoskun/vurt.git
+$ python vurt/vurt-client setup
 ```
